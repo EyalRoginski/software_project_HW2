@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import pandas as pd
 import os
 import numpy as np
+from mykmeanssp import fit
 
 
 @dataclass
@@ -99,7 +100,6 @@ def centroid_initialization(k: int, points_np_array: np.ndarray):
     centroids_indexes = [first_centroid_index]
     centroids = np.array([first_centroid])
 
-    print(centroids)
     for _ in range(k - 1):
         Dx = compute_Dx_array(points_np_array, centroids)
         Px = compute_Px(Dx)
@@ -118,7 +118,10 @@ def main():
         args.k, args.iter, args.epsilon, args.input_file_name_1, args.input_file_name_2
     )
     centroids, centroids_indexes = centroid_initialization(args.k, points_np_array)
-    print(centroids_indexes)
+    print(",".join(map(str, centroids_indexes)))
+    centroids = fit(
+        args.iter, args.epsilon, points_np_array.tolist(), centroids.tolist()
+    )
 
     print_centroids(centroids)
 
