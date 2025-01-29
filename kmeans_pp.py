@@ -1,5 +1,4 @@
 import sys
-import math
 from dataclasses import dataclass
 import pandas as pd
 import os
@@ -27,8 +26,8 @@ def parse_args(
         print("Invalid epsilon")
         exit()
 
-    file_name_1, file_extension_1 = os.path.splitext(input_file_1)
-    file_name_2, file_extension_2 = os.path.splitext(input_file_2)
+    _, file_extension_1 = os.path.splitext(input_file_1)
+    _, file_extension_2 = os.path.splitext(input_file_2)
     is_text_1 = False
     is_text_2 = False
 
@@ -63,7 +62,7 @@ def parse_args(
 
 def print_centroids(centroids: list[list[float]]):
     for centroid in centroids:
-        centroid_string = ",".join(["{0:.4f}".format(cord) for cord in centroid])
+        centroid_string = ",".join([f"{cord:.4f}" for cord in centroid])
         print(centroid_string)
 
 
